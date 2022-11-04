@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title> </title>
+  </head>
+  <body>
+    
+    <script type="text/javascript">
+    
+      function factorial(n) {
+  if (n < 0) return;
+  if (n < 2) return 1;
+  return n * factorial(n - 1);
+}
+    function ncr (n,r){
+    let num = factorial(n);
+      let denum = factorial (n-r) * factorial (r);
+      return (num/denum);
+    }  
+      let n1 = prompt('Enter n');
+      let n1 = Number(n1);
+      let r1 = prompt ('Enter r');
+      let r1 = Number(r1);
+      let result = ncr (n1,r1);
+      alert (result);
+      
+    </script>
+    
+  </body>
+</html>
