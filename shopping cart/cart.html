@@ -11,6 +11,15 @@
   <body>
   <style>
 
+.pdelete {
+	color: red;
+	text-decoration: none;
+	font-size: 20px;
+	
+	text-align: center;
+	border: none;
+	
+}
 
 
 
@@ -43,7 +52,7 @@
 						<th scope="col">Price</th>
 						<th scope="col" >Qty</th>
 						<th scope="col"  >Sub Total</th>
-						<th scope="col"  style=width:5%; border: none;"></th>
+						<th scope="col" class="pdelete" style=width:5%; border: none;"></th>
 					</tr>
 				  </thead>
 				  <tbody id="tbody">
@@ -163,10 +172,8 @@ for (let id in cart)
     tr.append(total_td);
 	
 	let delete_td = $("<td></td>").text(`Delete`);
-	delete_td.attr("data-id", id);
-	delete_td.attr("deleter", "delete");	
+	delete_td.attr("data-id", id);	
 	delete_td.addClass("btn btn-outline-danger");
-	delete_td.attr("style", "font-size: 20px;text-align: center;border: none;");
     tr.append(delete_td);
 
     tbody.append(tr)
@@ -178,7 +185,7 @@ for (let id in cart)
 	$("#cartbadge").text(cartitem);  
 	}
 
-	$("[deleter='delete']").click(function(){
+	$(".pdelete").click(function(){
 	let value = $(this).attr("data-id");
 	delete cart[value];
 	localStorage.setItem("cart", JSON.stringify(cart));
