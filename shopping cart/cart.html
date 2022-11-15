@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap eCommerce Page Template</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  </head>
+  <body>
+  <style>
+
+
+
+
+
+
+#shopping-cart-actions {
+	margin: 1.5em 0;
+	padding: 0;
+	list-style: none;
+	text-align: center;
+}
+
+#shopping-cart-actions li {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+
+
+  </style>
+  </div>
+<div class="container">
+	<div id="">
+			<h1>Your Shopping Cart</h1>
+			<form id="shopping-cart" action="cart.html" method="post">
+				<table class="table table-hover">
+				  <thead>
+					<tr>
+						<th scope="col">Title</th>
+						<th scope="col">Price</th>
+						<th scope="col" >Qty</th>
+						<th scope="col"  >Sub Total</th>
+						<th scope="col"  style=width:5%; border: none;"></th>
+					</tr>
+				  </thead>
+				  <tbody id="tbody">
+				  
+				  </tbody>
+				</table>
+				<p id="sub-total">
+					<strong>Total</strong>: <span id="stotal"></span>
+				</p>
+				<ul id="shopping-cart-actions">
+					<li>
+						<input type="submit" name="update" id="update-cart" class="btn btn-primary" value="Update Cart" />
+					</li>
+					<li>
+						<input  type="submit" name="delete" id="empty-cart" class="btn btn-primary" value="Empty Cart" />
+					</li>
+					<li>
+						<a href="index.html" class="btn btn-primary">Continue Shopping</a>
+					</li>
+					
+				</ul>
+			</form>
+		</div>
+	
+</div>
+    <hr>
+    <div class="container text-white bg-dark p-4">
+      <div class="row">
+        <div class="col-6 col-md-8 col-lg-7">
+          <div class="row text-center">
+            <div class="col-sm-6 col-md-4 col-lg-4 col-12">
+              <ul class="list-unstyled">
+                <li class="btn-link"> <a>Link anchor</a> </li>
+                <li class="btn-link"> <a>Link anchor</a> </li>
+               
+              </ul>
+            </div>
+            <div class="col-sm-6 col-md-4 col-12 col-lg-7">
+              <ul class="list-unstyled">
+                <li class="btn-link"> <a>Link anchor</a> </li>
+                <li class="btn-link"> <a>Link anchor</a> </li>
+                
+                
+              </ul>
+            </div>
+           
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-5 col-6">
+          <address>
+            <strong>Pathera, Inc.</strong><br>
+            
+          </address>
+          <address>
+            <strong>Full Name</strong><br>
+            <a href="github.com/tonyrex99">Adenuga Ebunifeoluwa Ayomikun 19CJ025761</a>
+          </address>
+        </div>
+      </div>
+    </div>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>Copyright © Tony. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+	<script src="js/navbar.js"></script>
+		<script>
+		$(document).ready(function(){
+		let cart = {};
+if (localStorage.getItem("cart")) {
+    cart = JSON.parse(localStorage.getItem("cart"));
+}
+
+let tbody = $("#tbody");
+var sub_total =0;
+var cartitem=0;	
+
+
+
+for (let id in cart) 
+ {
+    let item = cart[id];
+	if (item.qty==0){
+	delete cart[id];
+	localStorage.setItem("cart", JSON.stringify(cart));
+
+	}
+    let tr = $("<tr></tr>");  
+	
+	let title_td = $("<td></td>").text(item.title);
+    tr.append(title_td);
+	
+	let price_td = $("<td></td>").text("₦ "+ item.price.toLocaleString("en-US"));
+    tr.append(price_td);
+	
+    if(item.qty<10){
+
+	var qty_td = $("<td></td>").text(item.qty +` .`);
+	}else{
+	var qty_td = $("<td></td>").text(item.qty);
+	}
+	qty_td.prepend(` <span class="badge badge-primary" target="reduce" data-id="` + id  + `">&minus;</span>  `);
+     qty_td.append(` <span class="badge badge-primary" target="increase" data-id="` + id  + `">&plus;</span>`);
+    tr.append(qty_td);
+	
+	
+	let total_td = $("<td></td>").text("₦ "+ item.total.toLocaleString("en-US"));
+    tr.append(total_td);
+	
+	let delete_td = $("<td></td>").text(`Delete`);
+	delete_td.attr("data-id", id);
+	delete_td.attr("deleter", "delete");	
+	delete_td.addClass("btn btn-outline-danger");
+	delete_td.attr("style", "font-size: 20px;text-align: center;border: none;");
+    tr.append(delete_td);
+
+    tbody.append(tr)
+	sub_total += item.total;
+	cartitem =cartitem + Number(cart[id].qty);
+ }
+ console.log("There are "+cartitem+" items in cart");
+ 	if(cartitem !=0){
+	$("#cartbadge").text(cartitem);  
+	}
+
+	$("[deleter='delete']").click(function(){
+	let value = $(this).attr("data-id");
+	delete cart[value];
+	localStorage.setItem("cart", JSON.stringify(cart));
+	location.reload();
+  });
+  
+	$("#empty-cart").click(function(){
+	let cart ={};
+	localStorage.setItem("cart", JSON.stringify(cart));
+  });
+
+	$("#stotal").text("₦ "+sub_total.toLocaleString("en-US"));
+	
+	$("[target='reduce']").click(function(){
+	let value = $(this).attr("data-id");
+	cart[value].qty--;
+	cart[value].total=cart[value].price*cart[value].qty;
+		if (cart[value].qty==0){
+	delete cart[value];	
+	}
+	localStorage.setItem("cart", JSON.stringify(cart));
+	location.reload();
+	});
+	
+	$("[target='increase']").click(function(){
+	let value = $(this).attr("data-id");
+	cart[value].qty++;
+	cart[value].total=cart[value].price*cart[value].qty;
+	localStorage.setItem("cart", JSON.stringify(cart));
+	location.reload();
+	});
+	
+  });
+  
+</script>
+  </body>
+</html>
