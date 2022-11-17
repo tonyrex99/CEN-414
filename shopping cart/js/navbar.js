@@ -8,13 +8,13 @@ $("body").prepend(`<nav class="navbar navbar-expand-lg navbar-dark bg-dark" styl
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item active" activator="home">
               <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" activator="cart">
               <a class="nav-link" href="cart.html">Cart <span class="badge badge-success badge-pill" id="cartbadge"></span></a>
             </li>
-			   <li class="nav-item">
+			   <li class="nav-item" activator="contact">
               <a class="nav-link" href="contact.html">Contacts</a>
             </li>            
           
@@ -27,5 +27,23 @@ $("body").prepend(`<nav class="navbar navbar-expand-lg navbar-dark bg-dark" styl
       </div>
     </nav>
    `);
+ ;
+
+var str3 = document.location.href; 
+var unactive = "nav-item";
+var active = "nav-item active";
+if(str3.endsWith("cart.html")){
+$("li[activator='home']").attr("class",unactive);
+$("li[activator='cart']").attr("class",active);	
+}
+else if (str3.endsWith("contact.html"))
+{
+$("li[activator='home']").attr("class",unactive);
+$("li[activator='contact']").attr("class",active);
+}
+
+
+
+
 
 });
