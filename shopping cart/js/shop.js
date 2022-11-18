@@ -24,6 +24,7 @@ console.log("There are "+item+" items in cart");
     let price = Number($(this).attr("data-price"));
     let title = $(this).attr("data-title");
     let id = $(this).attr("data-id");
+	let icon = $(this).attr("data-icon");
 
 if (id in cart) {
 	
@@ -32,6 +33,7 @@ if (id in cart) {
 } else {
 	
     let cartItem = {
+		icon:  icon,
         title: title,
         price: price,
         qty: 1,
