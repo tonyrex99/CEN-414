@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <form>
+        <label for="temp">Enter temperature:</label>
+        <input type="number" id="temp" name="temp" required>
+        <br>
+        <label for="convertFrom">Convert from:</label>
+        <select id="convertFrom" name="convertFrom">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <br>
+        <label for="convertTo">Convert to:</label>
+        <select id="convertTo" name="convertTo">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <br>
+        <button type="button" onclick="convert()">Convert</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        function convert() {
+            let temp = document.getElementById("temp").value;
+            let convertFrom = document.getElementById("convertFrom").value;
+            let convertTo = document.getElementById("convertTo").value;
+            let result;
+            if (convertFrom === "celsius" && convertTo === "fahrenheit") {
+                result = (temp * 9/5) + 32;
+                result += "°F";
+            } else if (convertFrom === "celsius" && convertTo === "kelvin") {
+                result = temp + 273.15;
+                result += "K";
+            } else if (convertFrom === "fahrenheit" && convertTo === "celsius") {
+                result = (temp - 32) * 5/9;
+                result += "°C";
+            } else if (convertFrom === "fahrenheit" && convertTo === "kelvin") {
+                result = (temp + 459.67) * 5/9;
+                result += "K";
+            } else if (convertFrom === "kelvin" && convertTo === "celsius") {
+                result = temp - 273.15;
+                result += "°C";
+            } else if (convertFrom === "kelvin" && convertTo === "fahrenheit") {
+                result = (temp * 9/5) - 459.67;
+                result += "°F";
+            } else {
+                result = "Invalid Selection";
+            }
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+</body>
+</html>
