@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fibonacci Series</title>
+</head>
+<body>
+    <h1>Fibonacci Series</h1>
+    <ul>
+        <script>
+            var a = 0, b = 1, c, limit = 100;
+            document.write("<li>" + a + "</li>");
+            document.write("<li>" + b + "</li>");
+            while (c <= limit) {
+                c = a + b;
+                a = b;
+                b = c;
+                if(c<=100)
+                document.write("<li>" + c + "</li>");
+            }
+        </script>
+    </ul>
+</body>
+</html>
